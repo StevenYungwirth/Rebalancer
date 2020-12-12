@@ -1,0 +1,16 @@
+SecSymbol,AssetClass,SubClass,SecurityType,MaturityDate,ProductName,PriceDate,NavPrice
+ACMVX,US Stocks,US Mid Cap Value,Open-End Fund,,American Century Mid Cap Value Inv,04/20/20,13.12
+ANAYX,Taxable Bonds,Fixed Income,Open-End Fund,,AB Global Bond Advisor,04/20/20,8.34
+DFWIX,Non-US Stocks,International Equities,Open-End Fund,,DFA World ex US Core Equity Instl,04/20/20,8.86
+IWS,US Stocks,US Mid Cap Value,Exchange-Traded Fund,,iShares Russell Mid-Cap Value ETF,04/21/20,67.0247
+JENSX,US Stocks,US Large Cap Growth,Open-End Fund,,Jensen Quality Growth J,04/20/20,46.81
+MAPIX,Non-US Stocks,International Equities,Open-End Fund,,Matthews Asia Dividend Investor,04/20/20,14.91
+MMDA12,Cash Equivalents,Cash & Equivalents,Money Market Fund,,TD Bank FDIC Insured Money Market,04/21/20,1
+PDBAX,Taxable Bonds,Fixed Income,Open-End Fund,,PGIM Total Return Bond A,04/20/20,14.3
+PYCBX,Taxable Bonds,Fixed Income,Open-End Fund,,Payden Core Bond,04/20/20,10.81
+PYSBX,Taxable Bonds,Fixed Income,Open-End Fund,,Payden Low Duration Fund,04/20/20,9.95
+SLYV,US Stocks,US Small Cap Value,Exchange-Traded Fund,,SPDR S&P 600 Small Cap Value ETF,04/21/20,41.0937
+SPYG,US Stocks,US Large Cap Growth,Exchange-Traded Fund,,SPDR Portfolio S&P 500 Growth ETF,04/21/20,38.45
+TWEIX,US Stocks,US Large Cap Value,Open-End Fund,,American Century Equity Income Inv,04/20/20,7.67
+VCSH,Taxable Bonds,Fixed Income,Exchange-Traded Fund,,Vanguard Short-Term Corporate Bond ETF,04/21/20,80.48
+VTV,US Stocks,US Large Cap Value,Exchange-Traded Fund,,Vanguard Value ETF,04/21/20,93.9

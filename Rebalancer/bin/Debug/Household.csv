@@ -1,0 +1,2 @@
+HouseholdId,AccountId,AccountNumber,AccountName,AccountTaxable,AccountCustodian,AccountType,AccountYTDRealizedSTGL,AccountYTDRealizedLTGL,AdvisorName,TradingGroup,HouseholdDescription,SSN,ModelID,ModelName
+a05d8cff-54ac-fbd4-baf0-0861e36f6c07,7d777f34-8b70-411f-aa72-83f1c4f29dcd,926946230,BOB JONES SEP IRA,N,TD Ameritrade Institutional,SEP IRA,0,1175.63,Dan Budinger,,"Jones, Bob",,,

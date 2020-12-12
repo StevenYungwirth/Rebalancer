@@ -1,0 +1,3 @@
+AccountID,AccountNumber,SecSymbol,CostOfSharesSold,DateAquired,DateSoldOrPayDate,QuantitySold,SellMethod,TotalGains,GainType,GrossProceeds,NetProceeds
+7d777f34-8b70-411f-aa72-83f1c4f29dcd,926946230,PYCBX,15373.49,10/23/18,04/15/20,1482.854,Average Cost,626.51,Long Term Capital Gains and Losses,16000,16000
+7d777f34-8b70-411f-aa72-83f1c4f29dcd,926946230,MMDA12,14089.95,03/04/20,04/17/20,14089.95,FIFO,,Short Term Capital Gains and Losses,14089.95,14089.95
