@@ -796,18 +796,16 @@ namespace Rebalancer
         }
 
         // TODO Get funds' returns
-        // TODO Load clients' allocations
-        // TODO New form for adjusting defaults
-        // TODO Add a way to import new data
         // TODO Determine the sales to be made
         // TODO Add popup when clicking on a fund showing its information
         // TODO Indicate which fund is the better choice to buy/sell when looking at subclass
         // TODO Add radio buttons or another list view to toggle between asset classes/subclasses
         // TODO Add the percent sign to the spinners
-        // TODO? Put clients/securities into database?
+        // TODO Put clients/securities into database
         // TODO Generate csv files for importing trades and for generating report/letter
         // TODO Clean up all of the class properties
         // TODO Fix FormAdjust's fee rate/fee amount change methods to fit the format of the inputted fee rate
         // TODO Take tooltip off adjust fee button
+        // TODO Build logic for automatic rebalances
     }
 }
