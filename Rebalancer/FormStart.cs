@@ -6,211 +6,282 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Rebalancer.Classes;
 
 namespace Rebalancer
 {
     public partial class FormStart : Form
     {
         public Household SelectedHousehold = new Household();
-        private readonly List<Household> households = new List<Household>();
-        private const string HouseholdPath = "household.csv";
-        private const string SettingsPath = "settings.csv";
-        private const string PositionPath = "position.csv";
-        private const string SecurityPath = "security.csv";
+        private List<Household> households = new List<Household>();
+        public const string HouseholdPath = "household.csv";
+        public const string SettingsPath = "settings.csv";
+        public const string PositionPath = "position.csv";
+        public const string SecurityPath = "security.csv";
         public FormHousehold HouseholdForm;
+        private string formCheckedType;
+        private string formCheckedFrequency;
+        private string formCheckedRotation;
+        private FrequencyRadio QFreqRdo;
+        private FrequencyRadio SAFreqRdo;
+        private FrequencyRadio AFreqRdo;
+        private FrequencyRadio OFreqRdo;
+        private FrequencyRadio AllFreqRdo;
+        private Dictionary<string, Security> securityDict = new Dictionary<string, Security>();
 
         public FormStart()
         {
             InitializeComponent();
 
-            // TODO Run check to make sure all of the necessary csv files are available and able to be used
-            if (!Are_All_Files_Present())
+            // Run check to make sure all of the necessary csv files are available and able to be used
+            List<string> missingFile = Are_All_Files_Present();
+            if (missingFile.Count > 0)
             {
-                // At least one file is missing
-                
+                // At least one file is missing. Ask if user wants to import file(s)
+                Import_Files(missingFile);
             }
-
-            // TODO Set radio buttons to a default of AUM, Quarterly, and the rotation that corresponds to the current month
 
             // Load all of the households
-            Load_CSV(HouseholdPath, Load_Account_From_CSV_Row);
-            Combine_Households();
+            Load_Household_List();
 
-            // Add the households as options to be selected from the combo box, based on the radio buttons selected
-            foreach (Household household in this.households)
+            // TODO Load the households' types, frequencies, and rotations
+            Load_Test_Data();
+
+            // Set the radios checked by default
+            Initialize_Radios();
+        }
+
+        private List<string> Are_All_Files_Present()
+        {
+            // Get the list of files to look for
+            List<string> neededFiles = new List<string> { HouseholdPath, SettingsPath, PositionPath, SecurityPath };
+
+            // Return the list of files missing from the directory
+            List<string> missingFiles = neededFiles.Where(file => !File.Exists(file)).ToList();
+            return missingFiles;
+        }
+
+        private void Import_Files(List<string> missingFiles)
+        {
+            // TODO Ask if user wants to import missing file(s)
+        }
+
+        private void Load_Household_List()
+        {
+            // Get the data from the household csv
+            households = Household.Load_List_From_CSV(HouseholdPath);
+        }
+
+        private void Load_Test_Data()
+        {
+            // TODO Delete this once client rotations are brought in
+            foreach (Household household in households)
             {
-                CBHouseholdList.Items.Add(household.Description);
+                household.ClientType = "AUM";
+                household.UpdateFrequency = "Quarterly";
+                household.Rotation = "Mar/Jun/Sep/Dec";
             }
         }
 
-        private bool Are_All_Files_Present()
+        private void Initialize_Radios()
         {
-            if (File.Exists(HouseholdPath) && File.Exists(SettingsPath) && File.Exists(PositionPath) && File.Exists(SecurityPath))
+            // Set the checked changed for each radio button
+            foreach (GroupBox gbx in this.Controls.OfType<GroupBox>())
             {
-                return true;
-            }
-
-            return false;
-        }
-
-        private void Load_CSV(string path, Action<string[], List<string>> csvLoader)
-        {
-            StreamReader file = File.OpenText(path);
-            List<string> headerValues = null;
-            while (!file.EndOfStream)
-            {
-                // Get the next row
-                string row = file.ReadLine();
-
-                // Add the header line
-                if (headerValues == null)
+                foreach (RadioButton rdo in gbx.Controls.OfType<RadioButton>())
                 {
-                    headerValues = Get_CSV_Header_Values(row);
-                }
-                else
-                {
-                    // Hold the split data from the given row
-                    string[] csvRow;
-
-                    if (row.Contains('"'))
-                    {
-                        // If there's a quotation mark in the row, then there's a name with a comma in it (i.e. "Smith, Bob")
-                        // Find the location of the quotation marks in the entire string
-                        int firstQuote = row.IndexOf('"');
-                        int lastQuote = row.IndexOf('"', firstQuote + 1);
-
-                        // Get the value between the two quotation marks
-                        string quotedString = row.Substring(firstQuote + 1, lastQuote - firstQuote - 1);
-
-                        // Count the commas before the quotation mark
-                        int commaCount = row.Remove(firstQuote).Split(',').Length - 1;
-
-                        // Remove the comma
-                        row = row.Remove(row.IndexOf(',', firstQuote), 1);
-
-                        // Split the row
-                        csvRow = row.Split(',');
-
-                        // Put the comma back in where it belongs
-                        csvRow[commaCount] = quotedString;
-                    }
-                    else
-                    {
-                        // The household doesn't have a quotation in the name. Split the row
-                        csvRow = row.Split(',');
-                    }
-
-                    csvLoader(csvRow, headerValues);
+                    rdo.CheckedChanged += rdo_CheckChanged;
                 }
             }
 
-            file.Close();
+            // Instantiate each frequency radio
+            QFreqRdo = new FrequencyRadio(this, rdoQuarterly, "Quarterly", gbxQuarterly);
+            SAFreqRdo = new FrequencyRadio(this, rdoSemiAnnual, "SA", gbxSA);
+            AFreqRdo = new FrequencyRadio(this, rdoAnnual, "Annual", gbxAnnual);
+            OFreqRdo = new FrequencyRadio(this, rdoOther);
+            AllFreqRdo = new FrequencyRadio(this, rdoAllFrequency, "Annual", gbxAnnual);
+
+            // Set default client type of AUM
+            rdoAUM.Checked = true;
+
+            // Set default client frequency of quarterly
+            QFreqRdo.FormRdo.Checked = true;
+
+            // Set default client rotation based on the current month
+            QFreqRdo.Show_Months();
         }
 
-        private List<String> Get_CSV_Header_Values(string headerRow)
+        private void rdo_CheckChanged(object sender, EventArgs e)
         {
-            // Given the header line of a csv file, get the header names to reference later
-            return headerRow.Split(',').ToList();
+            // Cast the radio button that fired the event
+            RadioButton rdo = (RadioButton)sender;
+
+            if (!rdo.Checked)
+            {
+                // Don't do anything if this event is fired from the radio being unchecked
+                return;
+            }
+
+            // Call the method that corresponds to the checked radio button's containing group box
+            if (rdo.Parent == gbxType)
+            {
+                Type_Changed(rdo);
+            }
+            else if (rdo.Parent == gbxFrequency)
+            {
+                Frequency_Changed(rdo);
+            }
+            else if (rdo.Parent == gbxQuarterly || rdo.Parent == gbxSA || rdo.Parent == gbxAnnual)
+            {
+                Rotation_Changed(rdo);
+            }
+
+            // Fill the combo box with households whose settings match the checked off radio buttons
+            Filter_Client_List();
         }
 
-        private void Load_Account_From_CSV_Row(string[] csvCells, List<string> headerValues)
+        private void Type_Changed(RadioButton rdo)
         {
-            // Add the account to the list of households
-            Household tempHousehold = new Household
-            {
-                ID = csvCells[headerValues.IndexOf("HouseholdId")],
-                Description = csvCells[headerValues.IndexOf("HouseholdDescription")]
-            };
-            Account tempAccount = new Account
-            {
-                ID = csvCells[headerValues.IndexOf("AccountId")],
-                Name = csvCells[headerValues.IndexOf("AccountName")],
-                Number = csvCells[headerValues.IndexOf("AccountNumber")],
-                Custodian = csvCells[headerValues.IndexOf("AccountCustodian")],
-                Type = csvCells[headerValues.IndexOf("AccountType")],
-                ShortGains = double.Parse(csvCells[headerValues.IndexOf("AccountYTDRealizedSTGL")]),
-                LongGains = double.Parse(csvCells[headerValues.IndexOf("AccountYTDRealizedLTGL")])
-            };
-            tempHousehold.Accounts.Add(tempAccount);
-            households.Add(tempHousehold);
+            // Change the checked type variable
+            formCheckedType = rdo.Text;
         }
 
-        private void Combine_Households()
+        private void Frequency_Changed(RadioButton rdo)
         {
-            // If there are multiple households with the same ID, then their accounts should be combined so there's only one household per ID
-            for (int household = this.households.Count - 1; household > 0; household++)
+            // Get the FrequencyRadio that was checked
+            FrequencyRadio freqRdo = Get_Checked_Frequency_Radio(rdo);
+
+            if (freqRdo == null)
             {
-                if (households[household - 1].ID == households[household].ID)
+                // No frequency radio was found; do nothing
+                return;
+            }
+
+            // Show the corresponding rotation group box for the checked frequency
+            // and get the checked rotation radio from the visible group box
+            RadioButton checkedRotation = freqRdo.Show_Months();
+            formCheckedRotation = checkedRotation == null ? "" : checkedRotation.Text;
+
+            // Change the checked frequency variable
+            formCheckedFrequency = rdo.Text;
+        }
+
+        private FrequencyRadio Get_Checked_Frequency_Radio(RadioButton rdo)
+        {
+            // Convert the radio button to its corresponding FrequencyRadio
+            if (rdo == rdoQuarterly)
+            {
+                return QFreqRdo;
+            }
+            if (rdo == rdoSemiAnnual)
+            {
+                return SAFreqRdo;
+            }
+            if (rdo == rdoAnnual)
+            {
+                return AFreqRdo;
+            }
+            if (rdo == rdoOther)
+            {
+                return OFreqRdo;
+            }
+            if (rdo == rdoAllFrequency)
+            {
+                return AllFreqRdo;
+            }
+
+            // Should never be null
+            return null;
+        }
+
+        private void Rotation_Changed(RadioButton rdo)
+        {
+            // Set the checked rotation radio
+            if (rdo.Parent == gbxQuarterly)
+            {
+                QFreqRdo.CheckedRotationRdo = rdo;
+            }
+            else if (rdo.Parent == gbxSA)
+            {
+                SAFreqRdo.CheckedRotationRdo = rdo;
+            }
+            else if (rdo.Parent == gbxAnnual)
+            {
+                AFreqRdo.CheckedRotationRdo = rdo;
+                AllFreqRdo.CheckedRotationRdo = rdo;
+            }
+
+            // Change the checked rotation variable
+            formCheckedRotation = rdo.Text;
+        }
+
+        private void Filter_Client_List()
+        {
+            // Clear the household list
+            CBHouseholdList.Items.Clear();
+
+            // Go through list of households and only show the ones that match the checked radio buttons
+            foreach (Household household in households)
+            {
+                // Does the type match
+                bool typeMatches = household.ClientType == formCheckedType || formCheckedType == "All";
+
+                // Does the frequency match
+                bool frequencyMatches = household.UpdateFrequency == formCheckedFrequency || formCheckedFrequency == "All";
+
+                // Does the rotation match, or does the household's rotation contain the checked off month
+                bool rotationMatches = household.Rotation == formCheckedRotation
+                    || formCheckedFrequency == "All" && DoesRotationContainMonth(household.Rotation, formCheckedRotation);
+
+                // Check if the radio buttons checked off on the form match the household's settings
+                if (typeMatches && frequencyMatches && rotationMatches)
                 {
-                    // The household has already been added, so this line is another account within it
-                    households[household - 1].Accounts.Add(households[household].Accounts[0]);
-                    households.RemoveAt(household);
+                    // The client type, update frequency, and rotation match. Add the household to the list
+                    CBHouseholdList.Items.Add(household.Description);
                 }
             }
         }
 
-        private void Show_Quarterly(object sender, EventArgs e)
+        private bool DoesRotationContainMonth(string householdRotation, string formRotationMonth)
         {
-            // Show the corresponding group box depending on which radio button was checked
-            if (rdoQuarterly.Checked)
-            {
-                // Hide the rotation radio buttons that don't correspond to a quarterly rotation
-                gbxQuarterly.Visible = true;
-                gbxSemiAnnual.Visible = false;
-                gbxAnnual.Visible = false;
-            }
-        }
+            // Get the abbreviated month name from the checked off radio button
+            string abbreviatedMonth = formRotationMonth.Substring(0, 3);
 
-        private void Show_SemiAnnual(object sender, EventArgs e)
-        {
-            if (rdoSemiAnnual.Checked)
-            {
-                // Hide the rotation radio buttons that don't correspond to a quarterly rotation
-                gbxQuarterly.Visible = false;
-                gbxSemiAnnual.Visible = true;
-                gbxAnnual.Visible = false;
-            }
-        }
-
-        private void Show_Annual(object sender, EventArgs e)
-        {
-            if (rdoAnnual.Checked || rdoAllFrequency.Checked)
-            {
-                // Hide the rotation radio buttons that don't correspond to a quarterly rotation
-                gbxQuarterly.Visible = false;
-                gbxSemiAnnual.Visible = false;
-                gbxAnnual.Visible = true;
-            }
-        }
-
-        private void Show_None(object sender, EventArgs e)
-        {
-            if (rdoOther.Checked)
-            {
-                // Hide all of the rotation radio buttons
-                gbxQuarterly.Visible = false;
-                gbxSemiAnnual.Visible = false;
-                gbxAnnual.Visible = false;
-            }
+            // Return if the household's rotation contains the abbreviated month
+            string[] splitRotation = householdRotation.Split('/');
+            return splitRotation.Contains(abbreviatedMonth);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            // See if a household is selected
-            if (CBHouseholdList.SelectedIndex != -1)
+            // Don't do anything if there's no household selected
+            if (CBHouseholdList.SelectedIndex == -1)
             {
-                // Get the selected household
-                SelectedHousehold = households[CBHouseholdList.SelectedIndex];
-
-                // Open the form showing the household's data
-                HouseholdForm = new FormHousehold(SelectedHousehold);
-                HouseholdForm.FormClosed += Household_Form_Closed;
-                HouseholdForm.btnSelectNew.Click += Household_Form_Select_New;
-                this.Hide();
-                HouseholdForm.Show();
+                return;
             }
+
+            // Get the selected household
+            SelectedHousehold = households[CBHouseholdList.SelectedIndex];
+
+            // Open the form showing the household's data
+            Open_Household_Form();
+        }
+
+        private void Open_Household_Form()
+        {
+            // Instantiate the household form with events
+            HouseholdForm = new FormHousehold(SelectedHousehold, securityDict);
+            HouseholdForm.FormClosed += Household_Form_Closed;
+            HouseholdForm.btnSelectNew.Click += Household_Form_Select_New;
+
+            // Hide this form
+            this.Hide();
+
+            // Show the household form
+            HouseholdForm.Show();
         }
 
         private void Household_Form_Closed(object sender, EventArgs e)
@@ -223,9 +294,8 @@ namespace Rebalancer
         {
             // Reopen this form in order to select a new household
             this.Show();
-            HouseholdForm.Close();
-
-            // TODO closing the household form here calls the household_form_closed method, closing startform
+            CBHouseholdList.Text = "";
+            HouseholdForm.Hide();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -233,7 +303,5 @@ namespace Rebalancer
             // Close the form
             this.Close();
         }
-
-        // TODO Filter the client list per the radio buttons
     }
 }

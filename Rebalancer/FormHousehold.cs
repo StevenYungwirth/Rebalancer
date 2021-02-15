@@ -16,10 +16,9 @@ namespace Rebalancer
 {
     public partial class FormHousehold : Form
     {
-        public Dictionary<string, Security> SecurityDict = new Dictionary<string, Security>();
         public Household SelectedHousehold = new Household();
-        private readonly List<Household> households = new List<Household>();
-        private readonly List<string> tickerList = new List<string>();
+        public static List<string> MasterTickerList = new List<string>();
+        public Dictionary<string, Security> SecurityDict = new Dictionary<string, Security>();
         private Account selectedAccount = new Account();
         private string selectedSubclass = "";
         private readonly string[] subClasses =
@@ -31,9 +30,10 @@ namespace Rebalancer
                 "International Equities", "Specialty/Sector", "Other"
             };
 
-        public FormHousehold(Household household)
+        public FormHousehold(Household household, Dictionary<string, Security> securityDict)
         {
             InitializeComponent();
+            SecurityDict = securityDict;
             this.SelectedHousehold = household;
         }
 
@@ -116,7 +116,7 @@ namespace Rebalancer
                 if (positionRow.Contains(account.ID))
                 {
                     // The account ID matches one of the household's accounts. Add the security to the account
-                    Security tempSecurity = new Security(SecurityDict);
+                    Security tempSecurity = new Security();
                     tempSecurity.ID = positionRow[headerValues.IndexOf("AssetId")];
                     tempSecurity.Ticker = positionRow[headerValues.IndexOf("SecSymbol")];
                     tempSecurity.Quantity = double.Parse(positionRow[headerValues.IndexOf("Quantity")]);
@@ -125,15 +125,15 @@ namespace Rebalancer
             }
         }
 
-        private void Load_Securities_From_CSV_Row(string[] securityRow, List<string> headerValues)
+        private void Load_SecurityDict_From_CSV_Row(string[] securityRow, List<string> headerValues)
         {
             // Load the information for specific securities
-            foreach (string ticker in tickerList)
+            foreach (string ticker in MasterTickerList)
             {
                 if (securityRow.Contains(ticker))
                 {
                     // The account ID matches one of the tickers in the list. Add the security to the dictionary
-                    Security tempSecurity = new Security(SecurityDict)
+                    Security tempSecurity = new Security()
                     {
                         AssetClass = securityRow[headerValues.IndexOf("AssetClass")],
                         Subclass = securityRow[headerValues.IndexOf("SubClass")],
@@ -187,11 +187,16 @@ namespace Rebalancer
 
         private void Load_Household()
         {
-            // Set the household that was selected
-            //SelectedHousehold = households[CBHouseholdList.SelectedIndex];
+            // Load the household's allocation and fee structure
+            const string settingsPath = "settings.csv";
+            Load_CSV(settingsPath, Load_Settings_From_CSV_Row);
 
             // Load each accounts' securities
+            // TODO SelectedHousehold.Load_Securities();
             Load_Household_Securities();
+
+            // TODO Load the security dictionary from each account's securities
+            // Security.Load_SecurityDict
 
             // Fill the controls
             Fill_Accounts_ListView();
@@ -199,13 +204,6 @@ namespace Rebalancer
             Fill_Current_Table();
             Fill_Target_Table();
             Fill_Action_Table();
-
-            // Load the household's allocation and fee structure
-            const string settingsPath = "settings.csv";
-            Load_CSV(settingsPath, Load_Settings_From_CSV_Row);
-
-            // Set the values for the tooltip for equity target, fee rate, and fee amount
-            Set_Tooltip(0, SelectedHousehold.Allocation.Equity, SelectedHousehold.FeeRate, SelectedHousehold.TotalFees);
 
             // Enable the rest of the buttons besides Load Household
             Enable_Buttons();
@@ -224,15 +222,15 @@ namespace Rebalancer
                 {
                     foreach (Security security in account.Securities)
                     {
-                        if (!tickerList.Contains(security.Ticker))
+                        if (!MasterTickerList.Contains(security.Ticker))
                         {
-                            tickerList.Add(security.Ticker);
+                            MasterTickerList.Add(security.Ticker);
                         }
                     }
                 }
 
                 const string securityPath = "security.csv";
-                Load_CSV(securityPath, Load_Securities_From_CSV_Row);
+                Load_CSV(securityPath, Load_SecurityDict_From_CSV_Row);
 
                 SelectedHousehold.IsLoaded = true;
             }
@@ -261,13 +259,22 @@ namespace Rebalancer
         private void Fill_Top_Row()
         {
             // Total household value
-            lblHouseholdValueLabel.Text = this.SelectedHousehold.TotalValue.ToString("C");
+            lblHouseholdValueLabel.Text = SelectedHousehold.TotalValue.ToString("C");
+
+            // Money out
+            txtMoneyInOut.Text = SelectedHousehold.TotalWithdrawals.ToString("C");
 
             // Allocation
-            // TODO Provide settings file in order to get allocation
-            //lblAllocationLabel.Text = SelectedHousehold.Allocation.Name;
-            lblAllocationLabel.Text = "FPIS 60%";
-            this.SelectedHousehold.Allocation = new Allocation("FPIS 60%");
+            lblAllocationLabel.Text = SelectedHousehold.Allocation.Name;
+
+            // Equity target
+            nudEquityTarget.Value = (decimal) SelectedHousehold.Allocation.Equity * 100;
+
+            // Fee rate
+            lblFeeRateLabel.Text = SelectedHousehold.FeeRate.ToString("P");
+
+            // Fee amount
+            lblFeeAmountLabel.Text = SelectedHousehold.TotalFees.ToString("C");
         }
 
         private void Fill_Current_Table()
@@ -765,9 +772,6 @@ namespace Rebalancer
 
         private void btnAdjustFee_Click(object sender, EventArgs e)
         {
-            //TODO Delete this line when the actual number of updates per year is brought in
-            SelectedHousehold.NumberOfUpdatesPerYear = 4;
-
             // Call another form where the fee rate or amount can be changed
             FormAdjust frmAdjust = new FormAdjust(SelectedHousehold);
             frmAdjust.ShowDialog();
@@ -803,7 +807,6 @@ namespace Rebalancer
         // TODO Add the percent sign to the spinners
         // TODO Put clients/securities into database
         // TODO Generate csv files for importing trades and for generating report/letter
-        // TODO Clean up all of the class properties
         // TODO Fix FormAdjust's fee rate/fee amount change methods to fit the format of the inputted fee rate
         // TODO Take tooltip off adjust fee button
         // TODO Build logic for automatic rebalances

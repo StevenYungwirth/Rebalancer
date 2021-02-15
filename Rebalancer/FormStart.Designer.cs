@@ -43,18 +43,18 @@
             this.rdoSemiAnnual = new System.Windows.Forms.RadioButton();
             this.rdoQuarterly = new System.Windows.Forms.RadioButton();
             this.gbxAnnual = new System.Windows.Forms.GroupBox();
-            this.June = new System.Windows.Forms.RadioButton();
-            this.rdoMonth5 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth4 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth3 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth2 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth1 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth12 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth11 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth10 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth9 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth8 = new System.Windows.Forms.RadioButton();
-            this.rdoMonth7 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual6 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual5 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual4 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual3 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual2 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual1 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual12 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual11 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual10 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual9 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual8 = new System.Windows.Forms.RadioButton();
+            this.rdoAnnual7 = new System.Windows.Forms.RadioButton();
             this.rdoSA1 = new System.Windows.Forms.RadioButton();
             this.rdoSA2 = new System.Windows.Forms.RadioButton();
             this.rdoSA3 = new System.Windows.Forms.RadioButton();
@@ -65,12 +65,12 @@
             this.rdoQuarterly2 = new System.Windows.Forms.RadioButton();
             this.rdoQuarterly1 = new System.Windows.Forms.RadioButton();
             this.gbxQuarterly = new System.Windows.Forms.GroupBox();
-            this.gbxSemiAnnual = new System.Windows.Forms.GroupBox();
+            this.gbxSA = new System.Windows.Forms.GroupBox();
             this.gbxType.SuspendLayout();
             this.gbxFrequency.SuspendLayout();
             this.gbxAnnual.SuspendLayout();
             this.gbxQuarterly.SuspendLayout();
-            this.gbxSemiAnnual.SuspendLayout();
+            this.gbxSA.SuspendLayout();
             this.SuspendLayout();
             // 
             // CBHouseholdList
@@ -182,7 +182,6 @@
             this.rdoAllFrequency.TabStop = true;
             this.rdoAllFrequency.Text = "All";
             this.rdoAllFrequency.UseVisualStyleBackColor = true;
-            this.rdoAllFrequency.CheckedChanged += new System.EventHandler(this.Show_Annual);
             // 
             // rdoOther
             // 
@@ -194,7 +193,6 @@
             this.rdoOther.TabStop = true;
             this.rdoOther.Text = "Other/None";
             this.rdoOther.UseVisualStyleBackColor = true;
-            this.rdoOther.CheckedChanged += new System.EventHandler(this.Show_None);
             // 
             // rdoAnnual
             // 
@@ -206,7 +204,6 @@
             this.rdoAnnual.TabStop = true;
             this.rdoAnnual.Text = "Annual";
             this.rdoAnnual.UseVisualStyleBackColor = true;
-            this.rdoAnnual.CheckedChanged += new System.EventHandler(this.Show_Annual);
             // 
             // rdoSemiAnnual
             // 
@@ -218,7 +215,6 @@
             this.rdoSemiAnnual.TabStop = true;
             this.rdoSemiAnnual.Text = "Semi-Annual";
             this.rdoSemiAnnual.UseVisualStyleBackColor = true;
-            this.rdoSemiAnnual.CheckedChanged += new System.EventHandler(this.Show_SemiAnnual);
             // 
             // rdoQuarterly
             // 
@@ -230,22 +226,21 @@
             this.rdoQuarterly.TabStop = true;
             this.rdoQuarterly.Text = "Quarterly";
             this.rdoQuarterly.UseVisualStyleBackColor = true;
-            this.rdoQuarterly.CheckedChanged += new System.EventHandler(this.Show_Quarterly);
             // 
             // gbxAnnual
             // 
-            this.gbxAnnual.Controls.Add(this.June);
-            this.gbxAnnual.Controls.Add(this.rdoMonth5);
-            this.gbxAnnual.Controls.Add(this.rdoMonth4);
-            this.gbxAnnual.Controls.Add(this.rdoMonth3);
-            this.gbxAnnual.Controls.Add(this.rdoMonth2);
-            this.gbxAnnual.Controls.Add(this.rdoMonth1);
-            this.gbxAnnual.Controls.Add(this.rdoMonth12);
-            this.gbxAnnual.Controls.Add(this.rdoMonth11);
-            this.gbxAnnual.Controls.Add(this.rdoMonth10);
-            this.gbxAnnual.Controls.Add(this.rdoMonth9);
-            this.gbxAnnual.Controls.Add(this.rdoMonth8);
-            this.gbxAnnual.Controls.Add(this.rdoMonth7);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual6);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual5);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual4);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual3);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual2);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual1);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual12);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual11);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual10);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual9);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual8);
+            this.gbxAnnual.Controls.Add(this.rdoAnnual7);
             this.gbxAnnual.Location = new System.Drawing.Point(306, 118);
             this.gbxAnnual.Name = "gbxAnnual";
             this.gbxAnnual.Size = new System.Drawing.Size(273, 147);
@@ -254,137 +249,137 @@
             this.gbxAnnual.Text = "Rotation";
             this.gbxAnnual.Visible = false;
             // 
-            // June
+            // rdoAnnual6
             // 
-            this.June.AutoSize = true;
-            this.June.Location = new System.Drawing.Point(106, 49);
-            this.June.Name = "June";
-            this.June.Size = new System.Drawing.Size(48, 17);
-            this.June.TabIndex = 20;
-            this.June.TabStop = true;
-            this.June.Text = "June";
-            this.June.UseVisualStyleBackColor = true;
+            this.rdoAnnual6.AutoSize = true;
+            this.rdoAnnual6.Location = new System.Drawing.Point(106, 49);
+            this.rdoAnnual6.Name = "rdoAnnual6";
+            this.rdoAnnual6.Size = new System.Drawing.Size(48, 17);
+            this.rdoAnnual6.TabIndex = 20;
+            this.rdoAnnual6.TabStop = true;
+            this.rdoAnnual6.Text = "June";
+            this.rdoAnnual6.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth5
+            // rdoAnnual5
             // 
-            this.rdoMonth5.AutoSize = true;
-            this.rdoMonth5.Location = new System.Drawing.Point(106, 18);
-            this.rdoMonth5.Name = "rdoMonth5";
-            this.rdoMonth5.Size = new System.Drawing.Size(45, 17);
-            this.rdoMonth5.TabIndex = 19;
-            this.rdoMonth5.TabStop = true;
-            this.rdoMonth5.Text = "May";
-            this.rdoMonth5.UseVisualStyleBackColor = true;
+            this.rdoAnnual5.AutoSize = true;
+            this.rdoAnnual5.Location = new System.Drawing.Point(106, 18);
+            this.rdoAnnual5.Name = "rdoAnnual5";
+            this.rdoAnnual5.Size = new System.Drawing.Size(45, 17);
+            this.rdoAnnual5.TabIndex = 19;
+            this.rdoAnnual5.TabStop = true;
+            this.rdoAnnual5.Text = "May";
+            this.rdoAnnual5.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth4
+            // rdoAnnual4
             // 
-            this.rdoMonth4.AutoSize = true;
-            this.rdoMonth4.Location = new System.Drawing.Point(18, 109);
-            this.rdoMonth4.Name = "rdoMonth4";
-            this.rdoMonth4.Size = new System.Drawing.Size(45, 17);
-            this.rdoMonth4.TabIndex = 18;
-            this.rdoMonth4.TabStop = true;
-            this.rdoMonth4.Text = "April";
-            this.rdoMonth4.UseVisualStyleBackColor = true;
+            this.rdoAnnual4.AutoSize = true;
+            this.rdoAnnual4.Location = new System.Drawing.Point(18, 109);
+            this.rdoAnnual4.Name = "rdoAnnual4";
+            this.rdoAnnual4.Size = new System.Drawing.Size(45, 17);
+            this.rdoAnnual4.TabIndex = 18;
+            this.rdoAnnual4.TabStop = true;
+            this.rdoAnnual4.Text = "April";
+            this.rdoAnnual4.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth3
+            // rdoAnnual3
             // 
-            this.rdoMonth3.AutoSize = true;
-            this.rdoMonth3.Location = new System.Drawing.Point(18, 79);
-            this.rdoMonth3.Name = "rdoMonth3";
-            this.rdoMonth3.Size = new System.Drawing.Size(55, 17);
-            this.rdoMonth3.TabIndex = 17;
-            this.rdoMonth3.TabStop = true;
-            this.rdoMonth3.Text = "March";
-            this.rdoMonth3.UseVisualStyleBackColor = true;
+            this.rdoAnnual3.AutoSize = true;
+            this.rdoAnnual3.Location = new System.Drawing.Point(18, 79);
+            this.rdoAnnual3.Name = "rdoAnnual3";
+            this.rdoAnnual3.Size = new System.Drawing.Size(55, 17);
+            this.rdoAnnual3.TabIndex = 17;
+            this.rdoAnnual3.TabStop = true;
+            this.rdoAnnual3.Text = "March";
+            this.rdoAnnual3.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth2
+            // rdoAnnual2
             // 
-            this.rdoMonth2.AutoSize = true;
-            this.rdoMonth2.Location = new System.Drawing.Point(18, 49);
-            this.rdoMonth2.Name = "rdoMonth2";
-            this.rdoMonth2.Size = new System.Drawing.Size(66, 17);
-            this.rdoMonth2.TabIndex = 16;
-            this.rdoMonth2.TabStop = true;
-            this.rdoMonth2.Text = "February";
-            this.rdoMonth2.UseVisualStyleBackColor = true;
+            this.rdoAnnual2.AutoSize = true;
+            this.rdoAnnual2.Location = new System.Drawing.Point(18, 49);
+            this.rdoAnnual2.Name = "rdoAnnual2";
+            this.rdoAnnual2.Size = new System.Drawing.Size(66, 17);
+            this.rdoAnnual2.TabIndex = 16;
+            this.rdoAnnual2.TabStop = true;
+            this.rdoAnnual2.Text = "February";
+            this.rdoAnnual2.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth1
+            // rdoAnnual1
             // 
-            this.rdoMonth1.AutoSize = true;
-            this.rdoMonth1.Location = new System.Drawing.Point(18, 19);
-            this.rdoMonth1.Name = "rdoMonth1";
-            this.rdoMonth1.Size = new System.Drawing.Size(62, 17);
-            this.rdoMonth1.TabIndex = 15;
-            this.rdoMonth1.TabStop = true;
-            this.rdoMonth1.Text = "January";
-            this.rdoMonth1.UseVisualStyleBackColor = true;
+            this.rdoAnnual1.AutoSize = true;
+            this.rdoAnnual1.Location = new System.Drawing.Point(18, 19);
+            this.rdoAnnual1.Name = "rdoAnnual1";
+            this.rdoAnnual1.Size = new System.Drawing.Size(62, 17);
+            this.rdoAnnual1.TabIndex = 15;
+            this.rdoAnnual1.TabStop = true;
+            this.rdoAnnual1.Text = "January";
+            this.rdoAnnual1.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth12
+            // rdoAnnual12
             // 
-            this.rdoMonth12.AutoSize = true;
-            this.rdoMonth12.Location = new System.Drawing.Point(177, 109);
-            this.rdoMonth12.Name = "rdoMonth12";
-            this.rdoMonth12.Size = new System.Drawing.Size(74, 17);
-            this.rdoMonth12.TabIndex = 11;
-            this.rdoMonth12.TabStop = true;
-            this.rdoMonth12.Text = "December";
-            this.rdoMonth12.UseVisualStyleBackColor = true;
+            this.rdoAnnual12.AutoSize = true;
+            this.rdoAnnual12.Location = new System.Drawing.Point(177, 109);
+            this.rdoAnnual12.Name = "rdoAnnual12";
+            this.rdoAnnual12.Size = new System.Drawing.Size(74, 17);
+            this.rdoAnnual12.TabIndex = 11;
+            this.rdoAnnual12.TabStop = true;
+            this.rdoAnnual12.Text = "December";
+            this.rdoAnnual12.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth11
+            // rdoAnnual11
             // 
-            this.rdoMonth11.AutoSize = true;
-            this.rdoMonth11.Location = new System.Drawing.Point(177, 79);
-            this.rdoMonth11.Name = "rdoMonth11";
-            this.rdoMonth11.Size = new System.Drawing.Size(74, 17);
-            this.rdoMonth11.TabIndex = 10;
-            this.rdoMonth11.TabStop = true;
-            this.rdoMonth11.Text = "November";
-            this.rdoMonth11.UseVisualStyleBackColor = true;
+            this.rdoAnnual11.AutoSize = true;
+            this.rdoAnnual11.Location = new System.Drawing.Point(177, 79);
+            this.rdoAnnual11.Name = "rdoAnnual11";
+            this.rdoAnnual11.Size = new System.Drawing.Size(74, 17);
+            this.rdoAnnual11.TabIndex = 10;
+            this.rdoAnnual11.TabStop = true;
+            this.rdoAnnual11.Text = "November";
+            this.rdoAnnual11.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth10
+            // rdoAnnual10
             // 
-            this.rdoMonth10.AutoSize = true;
-            this.rdoMonth10.Location = new System.Drawing.Point(177, 49);
-            this.rdoMonth10.Name = "rdoMonth10";
-            this.rdoMonth10.Size = new System.Drawing.Size(63, 17);
-            this.rdoMonth10.TabIndex = 9;
-            this.rdoMonth10.TabStop = true;
-            this.rdoMonth10.Text = "October";
-            this.rdoMonth10.UseVisualStyleBackColor = true;
+            this.rdoAnnual10.AutoSize = true;
+            this.rdoAnnual10.Location = new System.Drawing.Point(177, 49);
+            this.rdoAnnual10.Name = "rdoAnnual10";
+            this.rdoAnnual10.Size = new System.Drawing.Size(63, 17);
+            this.rdoAnnual10.TabIndex = 9;
+            this.rdoAnnual10.TabStop = true;
+            this.rdoAnnual10.Text = "October";
+            this.rdoAnnual10.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth9
+            // rdoAnnual9
             // 
-            this.rdoMonth9.AutoSize = true;
-            this.rdoMonth9.Location = new System.Drawing.Point(177, 19);
-            this.rdoMonth9.Name = "rdoMonth9";
-            this.rdoMonth9.Size = new System.Drawing.Size(76, 17);
-            this.rdoMonth9.TabIndex = 8;
-            this.rdoMonth9.TabStop = true;
-            this.rdoMonth9.Text = "September";
-            this.rdoMonth9.UseVisualStyleBackColor = true;
+            this.rdoAnnual9.AutoSize = true;
+            this.rdoAnnual9.Location = new System.Drawing.Point(177, 19);
+            this.rdoAnnual9.Name = "rdoAnnual9";
+            this.rdoAnnual9.Size = new System.Drawing.Size(76, 17);
+            this.rdoAnnual9.TabIndex = 8;
+            this.rdoAnnual9.TabStop = true;
+            this.rdoAnnual9.Text = "September";
+            this.rdoAnnual9.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth8
+            // rdoAnnual8
             // 
-            this.rdoMonth8.AutoSize = true;
-            this.rdoMonth8.Location = new System.Drawing.Point(106, 109);
-            this.rdoMonth8.Name = "rdoMonth8";
-            this.rdoMonth8.Size = new System.Drawing.Size(58, 17);
-            this.rdoMonth8.TabIndex = 7;
-            this.rdoMonth8.TabStop = true;
-            this.rdoMonth8.Text = "August";
-            this.rdoMonth8.UseVisualStyleBackColor = true;
+            this.rdoAnnual8.AutoSize = true;
+            this.rdoAnnual8.Location = new System.Drawing.Point(106, 109);
+            this.rdoAnnual8.Name = "rdoAnnual8";
+            this.rdoAnnual8.Size = new System.Drawing.Size(58, 17);
+            this.rdoAnnual8.TabIndex = 7;
+            this.rdoAnnual8.TabStop = true;
+            this.rdoAnnual8.Text = "August";
+            this.rdoAnnual8.UseVisualStyleBackColor = true;
             // 
-            // rdoMonth7
+            // rdoAnnual7
             // 
-            this.rdoMonth7.AutoSize = true;
-            this.rdoMonth7.Location = new System.Drawing.Point(106, 79);
-            this.rdoMonth7.Name = "rdoMonth7";
-            this.rdoMonth7.Size = new System.Drawing.Size(43, 17);
-            this.rdoMonth7.TabIndex = 6;
-            this.rdoMonth7.TabStop = true;
-            this.rdoMonth7.Text = "July";
-            this.rdoMonth7.UseVisualStyleBackColor = true;
+            this.rdoAnnual7.AutoSize = true;
+            this.rdoAnnual7.Location = new System.Drawing.Point(106, 79);
+            this.rdoAnnual7.Name = "rdoAnnual7";
+            this.rdoAnnual7.Size = new System.Drawing.Size(43, 17);
+            this.rdoAnnual7.TabIndex = 6;
+            this.rdoAnnual7.TabStop = true;
+            this.rdoAnnual7.Text = "July";
+            this.rdoAnnual7.UseVisualStyleBackColor = true;
             // 
             // rdoSA1
             // 
@@ -497,21 +492,21 @@
             this.gbxQuarterly.TabStop = false;
             this.gbxQuarterly.Text = "Rotation";
             // 
-            // gbxSemiAnnual
+            // gbxSA
             // 
-            this.gbxSemiAnnual.Controls.Add(this.rdoSA3);
-            this.gbxSemiAnnual.Controls.Add(this.rdoSA4);
-            this.gbxSemiAnnual.Controls.Add(this.rdoSA5);
-            this.gbxSemiAnnual.Controls.Add(this.rdoSA6);
-            this.gbxSemiAnnual.Controls.Add(this.rdoSA2);
-            this.gbxSemiAnnual.Controls.Add(this.rdoSA1);
-            this.gbxSemiAnnual.Location = new System.Drawing.Point(306, 118);
-            this.gbxSemiAnnual.Name = "gbxSemiAnnual";
-            this.gbxSemiAnnual.Size = new System.Drawing.Size(194, 115);
-            this.gbxSemiAnnual.TabIndex = 8;
-            this.gbxSemiAnnual.TabStop = false;
-            this.gbxSemiAnnual.Text = "Rotation";
-            this.gbxSemiAnnual.Visible = false;
+            this.gbxSA.Controls.Add(this.rdoSA3);
+            this.gbxSA.Controls.Add(this.rdoSA4);
+            this.gbxSA.Controls.Add(this.rdoSA5);
+            this.gbxSA.Controls.Add(this.rdoSA6);
+            this.gbxSA.Controls.Add(this.rdoSA2);
+            this.gbxSA.Controls.Add(this.rdoSA1);
+            this.gbxSA.Location = new System.Drawing.Point(306, 118);
+            this.gbxSA.Name = "gbxSA";
+            this.gbxSA.Size = new System.Drawing.Size(194, 115);
+            this.gbxSA.TabIndex = 8;
+            this.gbxSA.TabStop = false;
+            this.gbxSA.Text = "Rotation";
+            this.gbxSA.Visible = false;
             // 
             // FormStart
             // 
@@ -519,7 +514,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(628, 327);
             this.Controls.Add(this.gbxQuarterly);
-            this.Controls.Add(this.gbxSemiAnnual);
+            this.Controls.Add(this.gbxSA);
             this.Controls.Add(this.gbxAnnual);
             this.Controls.Add(this.gbxFrequency);
             this.Controls.Add(this.gbxType);
@@ -537,8 +532,8 @@
             this.gbxAnnual.PerformLayout();
             this.gbxQuarterly.ResumeLayout(false);
             this.gbxQuarterly.PerformLayout();
-            this.gbxSemiAnnual.ResumeLayout(false);
-            this.gbxSemiAnnual.PerformLayout();
+            this.gbxSA.ResumeLayout(false);
+            this.gbxSA.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -554,34 +549,34 @@
         private System.Windows.Forms.RadioButton rdoAllType;
         private System.Windows.Forms.GroupBox gbxType;
         private System.Windows.Forms.GroupBox gbxFrequency;
-        private System.Windows.Forms.RadioButton rdoAllFrequency;
-        private System.Windows.Forms.RadioButton rdoOther;
-        private System.Windows.Forms.RadioButton rdoAnnual;
-        private System.Windows.Forms.RadioButton rdoSemiAnnual;
-        private System.Windows.Forms.RadioButton rdoQuarterly;
-        private System.Windows.Forms.GroupBox gbxAnnual;
-        private System.Windows.Forms.RadioButton rdoMonth12;
-        private System.Windows.Forms.RadioButton rdoMonth11;
-        private System.Windows.Forms.RadioButton rdoMonth10;
-        private System.Windows.Forms.RadioButton rdoMonth9;
-        private System.Windows.Forms.RadioButton rdoMonth8;
-        private System.Windows.Forms.RadioButton rdoMonth7;
+        private System.Windows.Forms.RadioButton rdoAnnual12;
+        private System.Windows.Forms.RadioButton rdoAnnual11;
+        private System.Windows.Forms.RadioButton rdoAnnual10;
+        private System.Windows.Forms.RadioButton rdoAnnual9;
+        private System.Windows.Forms.RadioButton rdoAnnual8;
+        private System.Windows.Forms.RadioButton rdoAnnual7;
         private System.Windows.Forms.RadioButton rdoSA6;
         private System.Windows.Forms.RadioButton rdoSA5;
         private System.Windows.Forms.RadioButton rdoSA4;
         private System.Windows.Forms.RadioButton rdoQuarterly3;
         private System.Windows.Forms.RadioButton rdoQuarterly2;
         private System.Windows.Forms.RadioButton rdoQuarterly1;
-        private System.Windows.Forms.RadioButton June;
-        private System.Windows.Forms.RadioButton rdoMonth5;
-        private System.Windows.Forms.RadioButton rdoMonth4;
-        private System.Windows.Forms.RadioButton rdoMonth3;
-        private System.Windows.Forms.RadioButton rdoMonth2;
-        private System.Windows.Forms.RadioButton rdoMonth1;
+        private System.Windows.Forms.RadioButton rdoAnnual6;
+        private System.Windows.Forms.RadioButton rdoAnnual5;
+        private System.Windows.Forms.RadioButton rdoAnnual4;
+        private System.Windows.Forms.RadioButton rdoAnnual3;
+        private System.Windows.Forms.RadioButton rdoAnnual2;
+        private System.Windows.Forms.RadioButton rdoAnnual1;
         private System.Windows.Forms.RadioButton rdoSA1;
         private System.Windows.Forms.RadioButton rdoSA2;
         private System.Windows.Forms.RadioButton rdoSA3;
-        private System.Windows.Forms.GroupBox gbxQuarterly;
-        private System.Windows.Forms.GroupBox gbxSemiAnnual;
+        public System.Windows.Forms.RadioButton rdoAllFrequency;
+        public System.Windows.Forms.RadioButton rdoOther;
+        public System.Windows.Forms.RadioButton rdoAnnual;
+        public System.Windows.Forms.RadioButton rdoQuarterly;
+        public System.Windows.Forms.RadioButton rdoSemiAnnual;
+        public System.Windows.Forms.GroupBox gbxAnnual;
+        public System.Windows.Forms.GroupBox gbxQuarterly;
+        public System.Windows.Forms.GroupBox gbxSA;
     }
 }

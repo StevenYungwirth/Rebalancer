@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="Classes\Account.cs" />
     <Compile Include="Classes\Allocation.cs" />
+    <Compile Include="Classes\CSVMethods.cs" />
+    <Compile Include="Classes\FrequencyRadio.cs" />
     <Compile Include="Classes\Security.cs" />
     <Compile Include="Classes\TradeLot.cs" />
     <Compile Include="FormHousehold.cs">

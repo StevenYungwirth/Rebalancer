@@ -14,3 +14,4 @@ AccountId,AssetId,SecSymbol,SecurityType,MarketValue,NavPrice,Quantity,PriceDate
 7d777f34-8b70-411f-aa72-83f1c4f29dcd,FEUSA04AC4,VTV,Exchange-Traded Fund,20094.6,93.9,214,04/21/20,0,0
 7d777f34-8b70-411f-aa72-83f1c4f29dcd,FOUSA056S9,ACMVX,Open-End Fund,13680.28,13.12,1042.704,04/20/20,0,0
 7d777f34-8b70-411f-aa72-83f1c4f29dcd,ddad1911-7664-4b27-816b-968e8f4563f0,MMDA12,Money Market Fund,145.96,1,145.96,04/21/20,0,0
+testaccount,testasset,XYZ,Open-End Fund,10000,10,1000,04/21/20,0,0
